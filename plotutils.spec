@@ -14,7 +14,6 @@ Group: Graphics
 Source: %{name}-%{version}.tar.bz2
 URL: http://www.gnu.org/software/plotutils/plotutils.html
 Requires: ghostscript-fonts >= 4 texinfo >= 3.9
-Buildroot: %{_tmppath}/%{name}-buildroot
 BuildRequires: flex
 BuildRequires: Xaw3d-devel
 BuildRequires: zlib1-devel
