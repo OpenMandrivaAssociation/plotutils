@@ -1,6 +1,6 @@
 %define name plotutils
 %define version 2.5
-%define release %mkrel 1
+%define release %mkrel 2
 %define major 2
 
 %define libname %mklibname %name %major
@@ -69,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %build
 
-%configure
+%configure --enable-libplotter
 
 %make
 
@@ -162,11 +162,12 @@ if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
 %{_datadir}/ode/*
 %dir %{_datadir}/tek2plot
 %{_datadir}/tek2plot/*
+%dir %{_datadir}/pic2plot
+%{_datadir}/pic2plot/*
 
 %files -n %{libname}
 %defattr (-,root,root)
 %{_libdir}/*so.*
-
 
 %files -n %{libname}-devel
 %defattr (-,root,root)
