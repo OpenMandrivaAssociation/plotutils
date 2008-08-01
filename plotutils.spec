@@ -1,6 +1,6 @@
 %define name plotutils
 %define version 2.5
-%define release %mkrel 4
+%define release %mkrel 5
 %define major 2
 
 %define libname %mklibname %name %major
