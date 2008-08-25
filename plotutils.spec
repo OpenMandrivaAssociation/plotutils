@@ -1,9 +1,10 @@
 %define name plotutils
-%define version 2.5
-%define release %mkrel 5
+%define version 2.5.1
+%define release %mkrel 1
 %define major 2
 
 %define libname %mklibname %name %major
+%define develname %mklibname %name -d
 
 Summary: GNU Plotting Utilities
 Name: %{name}
@@ -11,7 +12,7 @@ Version: %{version}
 Release: %{release}
 License: GPL
 Group: Graphics
-Source: %{name}-%{version}.tar.bz2
+Source: %{name}-%{version}.tar.gz
 URL: http://www.gnu.org/software/plotutils/plotutils.html
 Requires: ghostscript-fonts >= 4 texinfo >= 3.9
 Buildroot: %{_tmppath}/%{name}-buildroot
@@ -51,14 +52,15 @@ Provides: lib%name = %version-%release
 This package contains the library needed to run programs dynamically
 linked with %{name}.
 
-%package -n %{libname}-devel
+%package -n %{develname}
 Summary: Headers for developing programs that will use %{name}
 Group: Development/Other
 Requires: %{libname} = %{version}-%{release}
 Provides: lib%{name}-devel = %{version}-%{release}
 Provides: %{name}-devel = %{version}
+Obsoletes: %{libname}-devel
 
-%description -n %{libname}-devel
+%description -n %{develname}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
@@ -171,9 +173,9 @@ if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
 
 %files -n %{libname}
 %defattr (-,root,root)
-%{_libdir}/*so.*
+%{_libdir}/*so.%{major}*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr (-,root,root)
 %{_includedir}/*
 %{_libdir}/*.so
