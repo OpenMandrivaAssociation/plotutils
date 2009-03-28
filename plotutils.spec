@@ -22,6 +22,7 @@ BuildRequires: Xaw3d-devel
 BuildRequires: zlib1-devel
 BuildRequires: png-devel
 BuildRequires: libtool
+BuildRequires: bison
 BuildRequires: libxaw-devel
 
 %description 
