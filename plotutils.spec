@@ -1,6 +1,6 @@
 %define name plotutils
 %define version 2.5.1
-%define release %mkrel 1
+%define release %mkrel 2
 %define major 2
 
 %define libname %mklibname %name %major
@@ -13,6 +13,7 @@ Release: %{release}
 License: GPL
 Group: Graphics
 Source: %{name}-%{version}.tar.gz
+Patch0: plotutils-2.5.1-fix-str-fmt.patch
 URL: http://www.gnu.org/software/plotutils/plotutils.html
 Requires: ghostscript-fonts >= 4 texinfo >= 3.9
 Buildroot: %{_tmppath}/%{name}-buildroot
@@ -65,15 +66,12 @@ This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
 %setup -q
+%patch0 -p0
 
 %build
-
-%configure --enable-libplotter
-
-%make
+%configure2_5x --enable-libplotter
+%make LIBTOOL=/usr/bin/libtool
 
 %install
 export PATH=/usr/bin/X11:/usr/X11/bin:$PATH
