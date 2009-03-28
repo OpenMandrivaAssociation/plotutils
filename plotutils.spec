@@ -21,6 +21,7 @@ BuildRequires: flex
 BuildRequires: Xaw3d-devel
 BuildRequires: zlib1-devel
 BuildRequires: png-devel
+BuildRequires: libtool
 BuildRequires: libxaw-devel
 
 %description 
