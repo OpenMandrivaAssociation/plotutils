@@ -1,29 +1,29 @@
-%define name plotutils
-%define version 2.6
-%define release %mkrel 1
-%define major 2
+%define	name	plotutils
+%define	version	2.6
+%define	release	%mkrel 1
+%define	major	2
 
-%define libname %mklibname %name %major
+%define	libname	%mklibname %name %major
 %define develname %mklibname %name -d
 
-Summary: GNU Plotting Utilities
-Name: %{name}
-Version: %{version}
-Release: %{release}
-License: GPL
-Group: Graphics
-Source: %{name}-%{version}.tar.gz
-Patch0: plotutils-2.5.1-fix-str-fmt.patch
-URL: http://www.gnu.org/software/plotutils/plotutils.html
-Requires: ghostscript-fonts >= 4 texinfo >= 3.9
-Buildroot: %{_tmppath}/%{name}-buildroot
-BuildRequires: flex
-BuildRequires: Xaw3d-devel
-BuildRequires: zlib1-devel
-BuildRequires: png-devel
-BuildRequires: libtool
-BuildRequires: bison
-BuildRequires: libxaw-devel
+Summary:	GNU Plotting Utilities
+Name:		%{name}
+Version:	%{version}
+Release:	%{release}
+License:	GPLv2
+Group:		Graphics
+Source:		ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+Patch0:		plotutils-2.5.1-fix-str-fmt.patch
+URL:		http://www.gnu.org/software/%{name}/plotutils.html
+Requires:	ghostscript-fonts >= 4 texinfo >= 3.9
+Buildroot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	flex
+BuildRequires:	Xaw3d-devel
+BuildRequires:	zlib1-devel
+BuildRequires:	png-devel
+BuildRequires:	libtool
+BuildRequires:	bison
+BuildRequires:	libxaw-devel
 
 %description 
 The GNU plotting utilities, sometimes called 'plotutils', include: 
