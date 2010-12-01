@@ -1,6 +1,6 @@
 %define	name	plotutils
 %define	version	2.6
-%define	release	%mkrel 1
+%define	release	%mkrel 2
 %define	major	2
 
 %define	libname	%mklibname %name %major
@@ -19,9 +19,8 @@ Requires:	ghostscript-fonts >= 4 texinfo >= 3.9
 Buildroot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	flex
 BuildRequires:	Xaw3d-devel
-BuildRequires:	zlib1-devel
+BuildRequires:	zlib-devel
 BuildRequires:	png-devel
-BuildRequires:	libtool
 BuildRequires:	bison
 BuildRequires:	libxaw-devel
 
@@ -73,11 +72,11 @@ applications which will use %{name}.
 
 %build
 %configure2_5x --enable-libplotter
-%make LIBTOOL=/usr/bin/libtool
+%make
 
 %install
-export PATH=/usr/bin/X11:/usr/X11/bin:$PATH
-make DESTDIR=$RPM_BUILD_ROOT install
+rm -rf $RPM_BUILD_ROOT
+%makeinstall_std
 
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/X11/fonts/misc
 cp -p fonts/pcf/*.pcf $RPM_BUILD_ROOT%{_libdir}/X11/fonts/misc
