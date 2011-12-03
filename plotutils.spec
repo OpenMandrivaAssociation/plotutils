@@ -1,6 +1,6 @@
 %define	name	plotutils
 %define	version	2.6
-%define	release	%mkrel 2
+%define	release	%mkrel 3
 %define	major	2
 
 %define	libname	%mklibname %name %major
@@ -14,6 +14,7 @@ License:	GPLv2
 Group:		Graphics
 Source:		ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Patch0:		plotutils-2.5.1-fix-str-fmt.patch
+Patch1:		plotutils-2.6-png15.patch
 URL:		http://www.gnu.org/software/%{name}/plotutils.html
 Requires:	ghostscript-fonts >= 4 texinfo >= 3.9
 Buildroot:	%{_tmppath}/%{name}-buildroot
@@ -69,6 +70,7 @@ applications which will use %{name}.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p1
 
 %build
 %configure2_5x --enable-libplotter
