@@ -12,7 +12,7 @@ Source0:	ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Patch0:		plotutils-2.5.1-fix-str-fmt.patch
 Patch1:		plotutils-2.6-png15.patch
 URL:		http://www.gnu.org/software/%{name}/plotutils.html
-Requires:	ghostscript-fonts >= 4 texinfo >= 3.9
+Requires:	ghostscript-fonts >= 4
 BuildRequires:	flex
 BuildRequires:	Xaw3d-devel
 BuildRequires:	pkgconfig(zlib)
