@@ -53,8 +53,8 @@ linked with %{name}.
 %package -n	%{devname}
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/Other
-Requires:	%{libname} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}
+Requires:	%{libname} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
 
 %description -n	%{devname}
 This package contains the headers that programmers will need to develop
