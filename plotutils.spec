@@ -1,23 +1,19 @@
-%define	name	plotutils
-%define	version	2.6
-%define	release	%mkrel 3
 %define	major	2
 
-%define	libname	%mklibname %name %major
-%define develname %mklibname %name -d
+%define	libname	%mklibname %{name} %{major}
+%define	devname	%mklibname %{name} -d
 
 Summary:	GNU Plotting Utilities
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		plotutils
+Version:	2.6
+Release:	4
 License:	GPLv2
 Group:		Graphics
-Source:		ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Patch0:		plotutils-2.5.1-fix-str-fmt.patch
 Patch1:		plotutils-2.6-png15.patch
 URL:		http://www.gnu.org/software/%{name}/plotutils.html
 Requires:	ghostscript-fonts >= 4 texinfo >= 3.9
-Buildroot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	flex
 BuildRequires:	Xaw3d-devel
 BuildRequires:	zlib-devel
@@ -46,24 +42,24 @@ of arbitrary dimensionality.  It uses cubic splines, splines under tension,
 or cubic Bessel interpolation.  'ode' is an interactive program that can
 integrate a user-specified system of ordinary differential equations.
 
-%package -n %libname
-Summary: Main library for %{name}
-Group: Graphics
-Provides: lib%name = %version-%release
+%package -n	%{libname}
+Summary:	Main library for %{name}
+Group:		Graphics
+Provides:	lib%{name} = %{version}-%{release}
 
-%description -n %libname
+%description -n %{libname}
 This package contains the library needed to run programs dynamically
 linked with %{name}.
 
-%package -n %{develname}
-Summary: Headers for developing programs that will use %{name}
-Group: Development/Other
-Requires: %{libname} = %{version}-%{release}
-Provides: lib%{name}-devel = %{version}-%{release}
-Provides: %{name}-devel = %{version}
-Obsoletes: %{libname}-devel
+%package -n	%{devname}
+Summary:	Headers for developing programs that will use %{name}
+Group:		Development/Other
+Requires:	%{libname} = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}
+Obsoletes:	%{libname}-devel
 
-%description -n %{develname}
+%description -n	%{devname}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
@@ -73,18 +69,14 @@ applications which will use %{name}.
 %patch1 -p1
 
 %build
-%configure2_5x --enable-libplotter
+%configure2_5x	--enable-libplotter
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/X11/fonts/misc
 cp -p fonts/pcf/*.pcf $RPM_BUILD_ROOT%{_libdir}/X11/fonts/misc
-
-%clean 
-rm -rf $RPM_BUILD_ROOT
 
 %post
 export PATH=/sbin:/usr/bin/X11:/usr/X11/bin:/usr/bin:$PATH
@@ -150,16 +142,7 @@ cd %{_libdir}/X11/fonts/misc
 mkfontdir
 if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %files
-%defattr (-,root,root)
 %doc AUTHORS INSTALL.fonts KNOWN_BUGS NEWS ONEWS PROBLEMS README THANKS
 %{_bindir}/*
 %{_libdir}/X11/fonts/misc/*
@@ -173,11 +156,9 @@ if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
 %{_datadir}/pic2plot/*
 
 %files -n %{libname}
-%defattr (-,root,root)
 %{_libdir}/*so.%{major}*
 
-%files -n %{develname}
-%defattr (-,root,root)
+%files -n %{devname}
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/*.a
@@ -185,5 +166,3 @@ if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
 %dir %{_datadir}/libplot
 %{_datadir}/libplot/*   
 %doc README
-
-
