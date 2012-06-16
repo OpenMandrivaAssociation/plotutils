@@ -45,7 +45,6 @@ integrate a user-specified system of ordinary differential equations.
 %package -n	%{libname}
 Summary:	Main library for %{name}
 Group:		Graphics
-Provides:	lib%{name} = %{version}-%{release}
 
 %description -n %{libname}
 This package contains the library needed to run programs dynamically
@@ -55,9 +54,7 @@ linked with %{name}.
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/Other
 Requires:	%{libname} = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}
-Obsoletes:	%{libname}-devel
 
 %description -n	%{devname}
 This package contains the headers that programmers will need to develop
