@@ -162,7 +162,6 @@ if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/*.a
-%{_libdir}/*.la
 %dir %{_datadir}/libplot
 %{_datadir}/libplot/*   
 %doc README
