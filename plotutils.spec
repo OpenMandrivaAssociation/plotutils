@@ -1,5 +1,4 @@
 %define	major	2
-
 %define	libname	%mklibname %{name} %{major}
 %define	devname	%mklibname %{name} -d
 
@@ -16,10 +15,10 @@ URL:		http://www.gnu.org/software/%{name}/plotutils.html
 Requires:	ghostscript-fonts >= 4 texinfo >= 3.9
 BuildRequires:	flex
 BuildRequires:	Xaw3d-devel
-BuildRequires:	zlib-devel
-BuildRequires:	png-devel
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(libpng)
 BuildRequires:	bison
-BuildRequires:	libxaw-devel
+BuildRequires:	pkgconfig(xaw7)
 
 %description 
 The GNU plotting utilities, sometimes called 'plotutils', include: 
