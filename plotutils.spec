@@ -80,7 +80,6 @@ cp -p fonts/pcf/*.pcf $RPM_BUILD_ROOT%{_libdir}/X11/fonts/misc
 
 %post
 export PATH=/sbin:/usr/bin/X11:/usr/X11/bin:/usr/bin:$PATH
-install-info /usr/share/info/plotutils.info %{_infodir}/dir
 cd %{_libdir}/X11/fonts/misc
 mkfontdir
 if ! test -f %{_libdir}/X11/fonts/Type1/a010013l.pfb ; then
@@ -129,12 +128,6 @@ mkfontdir
 fi
 fi
 if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
-
-%preun
-export PATH=/sbin:/usr/bin:$PATH
-if [ $1 = 0 ]; then
-install-info --delete /usr/info/plotutils.info /usr/info/dir
-fi
 
 %postun
 export PATH=/sbin:/usr/bin/X11:/usr/X11/bin:$PATH
