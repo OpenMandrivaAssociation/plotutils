@@ -1,0 +1,11 @@
+--- pic2plot/gram.yy.str	2009-03-28 22:28:01.000000000 +0100
++++ pic2plot/gram.yy	2009-03-28 22:28:15.000000000 +0100
+@@ -1833,7 +1833,7 @@
+ 	    {
+ 	      one_format += *form++;
+ 	      one_format += '\0';
+-	      sprintf(sprintf_buf, one_format.contents());
++	      sprintf(sprintf_buf, "%s", one_format.contents());
+ 	    }
+ 	  else 
+ 	    {
