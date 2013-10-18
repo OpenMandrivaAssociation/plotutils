@@ -1,28 +1,31 @@
-%define	major	2
-%define	 xmi_major 0
-%define	libname	%mklibname %name %major
-%define develname %mklibname %name -d
+%define	major 2
+%define xmi_major 0
+%define libplot %mklibname plot %{major}
+%define libplotter %mklibname plotter %{major}
+%define libxmi %mklibname xmi %{xmi_major}
+%define devname %mklibname %{name} -d
 
 Summary:	GNU Plotting Utilities
 Name:		plotutils
 Version:	2.6
-Release:	16
+Release:	17
 License:	GPLv2
 Group:		Graphics
-Source:		ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+Url:		http://www.gnu.org/software/%{name}/plotutils.html
+Source0:	ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Patch0:		plotutils-2.5.1-fix-str-fmt.patch
 Patch1:		plotutils-2.6-libpng-1.5.patch
-URL:		http://www.gnu.org/software/%{name}/plotutils.html
-Requires:	ghostscript-fonts texinfo
+BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	Xaw3d-devel
-BuildRequires:	zlib-devel
-BuildRequires:	png-devel
-BuildRequires:	bison
-BuildRequires:	libxaw-devel
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(xaw7)
+BuildRequires:	pkgconfig(zlib)
+Requires:	ghostscript-fonts
+Requires:	texinfo
 
 %description 
-The GNU plotting utilities, sometimes called 'plotutils', include: 
+The GNU plotting utilities, sometimes called 'plotutils', include:	
 (1) GNU libplot, a shared library for exporting 2-D vector graphics files
 and for performing vector graphics animation under the X Window System.
 Its output file formats include the new WebCGM format, pseudo-GIF, PNM,
@@ -42,32 +45,44 @@ of arbitrary dimensionality. It uses cubic splines, splines under tension,
 or cubic Bessel interpolation. 'ode' is an interactive program that can
 integrate a user-specified system of ordinary differential equations.
 
+%package -n %{libplot}
+Summary:	Shared library for %{name}
+Group:		Graphics
+Obsoletes:	%{_lib}plotutils2 < 2.16-17
 
-%package -n %libname
-Summary: Main library for %{name}
-Group: Graphics
-Provides: lib%name = %version-%release
-Obsoletes: %{mklibname xmi 0}
-
-%description -n %libname
-This package contains the library needed to run programs dynamically
+%description -n %{libplot}
+This package contains a shared library needed to run programs dynamically
 linked with %{name}.
 
+%package -n %{libplotter}
+Summary:	Shared library for %{name}
+Group:		Graphics
+Conflicts:	%{_lib}plotutils2 < 2.16-17
 
-%package -n %{develname}
-Summary: Headers for developing programs that will use %{name}
-Group: Development/Other
-Requires: %{libname} = %{version}-%{release}
-Provides: lib%{name}-devel = %{version}-%{release}
-Provides: %{name}-devel = %{version}
-Provides: libxmi-devel
-Obsoletes: %{libname}-devel
-Obsoletes: %{mklibname xmi 0 -d}
+%description -n %{libplotter}
+This package contains a shared library needed to run programs dynamically
+linked with %{name}.
 
-%description -n %{develname}
+%package -n %{libxmi}
+Summary:	Shared library for %{name}
+Group:		Graphics
+Conflicts:	%{_lib}plotutils2 < 2.16-17
+
+%description -n %{libxmi}
+This package contains a shared library needed to run programs dynamically
+linked with %{name}.
+
+%package -n %{devname}
+Summary:	Headers for developing programs that will use %{name}
+Group:		Development/Other
+Requires:	%{libplot} = %{version}-%{release}
+Requires:	%{libplotter} = %{version}-%{release}
+Requires:	%{libxmi} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+
+%description -n %{devname}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
-
 
 %prep
 %setup -q
@@ -75,7 +90,11 @@ applications which will use %{name}.
 %patch1 -p0
 
 %build
-%configure2_5x --enable-libplotter --enable-libxmi 
+%configure2_5x \
+	--disable-static \
+	--enable-libplotter \
+	--enable-libxmi
+
 %make
 
 %install
@@ -83,9 +102,6 @@ applications which will use %{name}.
 
 mkdir -p %{buildroot}%{_libdir}/X11/fonts/misc
 cp -p fonts/pcf/*.pcf %{buildroot}%{_libdir}/X11/fonts/misc
-
-# We don't want .la files
-find %{buildroot} -name *.la -delete
 
 %post
 export PATH=/sbin:/usr/bin/X11:/usr/X11/bin:/usr/bin:$PATH
@@ -158,51 +174,19 @@ if test "$DISPLAY" != "" ; then xset fp rehash 2> /dev/null ; fi
 %dir %{_datadir}/pic2plot
 %{_datadir}/pic2plot/*
 
-%files -n %{libname}
+%files -n %{libplot}
 %{_libdir}/libplot.so.%{major}*
+
+%files -n %{libplotter}
 %{_libdir}/libplotter.so.%{major}*
+
+%files -n %{libxmi}
 %{_libdir}/libxmi.so.%{xmi_major}*
 
-%files -n %{develname}
+%files -n %{devname}
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/*.a
 %dir %{_datadir}/libplot
 %{_datadir}/libplot/*
 %doc README
 
-
-%changelog
-
-* Mon Feb 20 2012 kamil <kamil> 2.6-9.mga2
-+ Revision: 211144
-- bildrequire xaw3d-devel, not Xaw3d-devel
-- stop providing .la files
-- clean .spec a bit
-
-* Sun Sep 11 2011 fwang <fwang> 2.6-8.mga2
-+ Revision: 142407
-- fix build with libpng 1.5
-- rebuild for new libpng
-
-* Wed Apr 13 2011 mikala <mikala> 2.6-7.mga1
-+ Revision: 84075
-- Don't put the .so file in the libname package
-
-* Sat Feb 19 2011 ahmad <ahmad> 2.6-6.mga1
-+ Revision: 54399
-- obsolete libxmi to smooth upgrades
-
-* Fri Feb 18 2011 mikala <mikala> 2.6-5.mga1
-+ Revision: 53528
-- Enable libxmi support
-- Fix file list
-
-* Sat Feb 12 2011 ahmad <ahmad> 2.6-4.mga1
-+ Revision: 50729
-+ rebuild (emptylog)
-
-* Sat Feb 12 2011 ahmad <ahmad> 2.6-3.mga1
-+ Revision: 50698
-- drop old/unneeded scriptlets
-- imported package plotutils
