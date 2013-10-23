@@ -6,7 +6,7 @@
 Summary:	GNU Plotting Utilities
 Name:		plotutils
 Version:	2.6
-Release:	15
+Release:	16
 License:	GPLv2
 Group:		Graphics
 Source:		ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
