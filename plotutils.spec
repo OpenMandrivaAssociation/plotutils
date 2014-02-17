@@ -14,12 +14,12 @@ Patch0:		plotutils-2.5.1-fix-str-fmt.patch
 Patch1:		plotutils-2.6-libpng-1.5.patch
 URL:		http://www.gnu.org/software/%{name}/plotutils.html
 Requires:	ghostscript-fonts texinfo
-BuildRequires:	flex
-BuildRequires:	Xaw3d-devel
-BuildRequires:	zlib-devel
-BuildRequires:	png-devel
-BuildRequires:	bison
-BuildRequires:	libxaw-devel
+BuildRequires:  bison
+BuildRequires:  flex
+BuildRequires:  Xaw3d-devel
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(xaw7)
+BuildRequires:  pkgconfig(zlib)
 
 %description 
 The GNU plotting utilities, sometimes called 'plotutils', include: 
