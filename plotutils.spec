@@ -4,6 +4,8 @@
 %define libplotter %mklibname plotter %{major}
 %define libxmi %mklibname xmi %{xmi_major}
 %define devname %mklibname %{name} -d
+%define _disable_rebuild_configure 1
+%define _disable_lto 1
 
 Summary:	GNU Plotting Utilities
 Name:		plotutils
