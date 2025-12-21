@@ -17,6 +17,11 @@ Url:		https://www.gnu.org/software/%{name}/plotutils.html
 Source0:	ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Patch0:		plotutils-2.5.1-fix-str-fmt.patch
 Patch1:		plotutils-2.6-libpng-1.5.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	Xaw3d-devel
